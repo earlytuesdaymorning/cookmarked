@@ -2,6 +2,7 @@ from cProfile import label
 from email.mime import image
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from .models import Recipe, Instruction, Photo
 
 # Create your views here.
 def home(request):
@@ -11,9 +12,11 @@ def about(request):
     return render(request, 'about.html')
 
 def all_recipes(request):
+    recipes = Recipe.objects.all()
     return render(request, 'recipes/all.html', { 'recipes': recipes })
 
 def cookmarked_recipes(request):
+    myrecipes = Recipe.objects.filter(user=request.user)
     return render(request, 'recipes/index.html', { 'myrecipes': myrecipes })
 
 # class Recipe:
@@ -113,4 +116,3 @@ def cookmarked_recipes(request):
 #         """
 #     )
 # ]
-
