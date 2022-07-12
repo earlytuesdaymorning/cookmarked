@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>My Recipes</h1>
+<hr />
+
+{% for myrecipe in myrecipes %}
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ myrecipe.label }}</span>
+        <div class="right">
+            <img src="{{ myrecipe.image }}">
+        </div>
+        <p>Meal Type: {{ myrecipe.mealtype }}</p>
+        <p>Ingredients: {{ myrecipe.ingredients }}</p>
+        <p>Intructions: {{ myrecipe.instructions }}</p>
+    </div>
+</div>
+{% endfor %} {% endblock %}
