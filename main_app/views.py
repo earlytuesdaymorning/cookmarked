@@ -52,7 +52,21 @@ def add_instruction(request, recipe_id):
         new_instuction.save()
     return redirect('mydetails', recipe_id=recipe_id)
 
+def add_photo(request, recipe_id):
+    photo_file = request.FILES.get('photo-file', None)
 
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            photo = Photo(url=url, recipe_id=recipe_id)
+            photo.save()
+        except Exception as error:
+            print('An error occurred uploading file to S3: ', error)
+    return redirect('mydetails', recipe_id=recipe_id)
 
 class RecipeCreate(CreateView):
     model = Recipe

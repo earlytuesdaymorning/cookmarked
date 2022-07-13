@@ -5,9 +5,12 @@
 
 <div class="card">
     <div class="card-content">
-        <p class="right"><b>Meal Type: </b>{{ recipe.mealtype }}</p>
         <div class="right">
-            <img src="{{ recipe.image }}">
+            {% for photo in recipe.photo_set.all %}
+            <img class="responsive-img card-panel" src="{{ photo.url }}">
+            {% empty %}
+            <div class="card-panel red-text text-darken-4 center-align">No Photos Uploaded</div>
+            {% endfor %}
         </div>
         <p><span class="card-title"><b>Ingredients: </b></span>{{ recipe.ingredients }}</p>
         <table class="striped">
@@ -24,6 +27,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div class="right">
+            <p><b>Meal Type: </b>{{ recipe.mealtype }}</p>
+        </div>
     </div>
 </div>
 {% endblock %}
