@@ -17,6 +17,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.label
+    
+    def get_absolute_url(self):
+        return reverse('mydetails', kwargs={'recipe_id': self.id})
 
 class Instruction(models.Model):
     text = models.CharField(max_length=500)

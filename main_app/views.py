@@ -1,7 +1,9 @@
 from cProfile import label
+from dataclasses import field
 from email.mime import image
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.generic.edit import CreateView
 from .models import Recipe, Instruction, Photo
 
 # Create your views here.
@@ -27,7 +29,17 @@ def my_recipe_details(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
     return render(request, 'recipes/mydetails.html', { 'recipe': recipe })
 
+class RecipeCreate(CreateView):
+    model = Recipe
+    fields = ['label', 'mealtype', 'ingredients']
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
+class YourRecipeCreate(CreateView):
+    model = Recipe
+    fields = '__all__'
 
 
 
