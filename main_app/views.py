@@ -5,8 +5,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import is_valid_path
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+import uuid
+import boto3
 from .models import Recipe, Instruction, Photo
 from .forms import InstructionForm
+
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+BUCKET = 'cookmarked'
 
 # Create your views here.
 def home(request):
@@ -46,6 +51,8 @@ def add_instruction(request, recipe_id):
         new_instuction.recipe_id = recipe_id
         new_instuction.save()
     return redirect('mydetails', recipe_id=recipe_id)
+
+
 
 class RecipeCreate(CreateView):
     model = Recipe

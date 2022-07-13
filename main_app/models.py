@@ -23,11 +23,11 @@ class Recipe(models.Model):
 
 class Instruction(models.Model):
     step = models.IntegerField()
-    text = models.CharField(max_length=500)
+    text = models.CharField(max_length=600)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
     def __str__(self):
-        return {self.text}
+        return self.text
 
     class Meta:
         ordering = ['step']
