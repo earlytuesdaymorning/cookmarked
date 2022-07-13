@@ -19,7 +19,7 @@
             <tbody>
                 {% for instruction in recipe.instruction_set.all %}
                 <tr>
-                    <td>{{ instruction.text }}</td>
+                    <td>{{ instruction.step }}. {{ instruction.text }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

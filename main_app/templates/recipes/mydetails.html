@@ -19,7 +19,7 @@
             <tbody>
                 {% for instruction in recipe.instruction_set.all %}
                 <tr>
-                    <td>{{ instruction.text }}</td>
+                    <td>{{ instruction.step }}. {{ instruction.text }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -30,4 +30,17 @@
         <a href="{% url 'recipe_delete' recipe.id %}">Delete</a>
     </div>
 </div>
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <form action="{% url 'add_instruction' recipe.id %}" method="post">
+                    {% csrf_token %} {{ instruction_form.as_p }}
+                    <input type="submit" class="btn" value="Add Instruction" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

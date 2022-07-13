@@ -22,12 +22,15 @@ class Recipe(models.Model):
         return reverse('mydetails', kwargs={'recipe_id': self.id})
 
 class Instruction(models.Model):
+    step = models.IntegerField()
     text = models.CharField(max_length=500)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
     def __str__(self):
         return {self.text}
 
+    class Meta:
+        ordering = ['step']
     
 
 class Photo(models.Model):

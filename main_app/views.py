@@ -3,8 +3,10 @@ from dataclasses import field
 from email.mime import image
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import is_valid_path
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Recipe, Instruction, Photo
+from .forms import InstructionForm
 
 # Create your views here.
 def home(request):
@@ -23,11 +25,27 @@ def cookmarked_recipes(request):
 
 def recipe_details(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
-    return render(request, 'recipes/details.html', { 'recipe': recipe })
+    instruction_form = InstructionForm()
+    return render(request, 'recipes/details.html', {
+        'recipe': recipe,
+        'instruction_form': instruction_form
+    })
 
 def my_recipe_details(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
-    return render(request, 'recipes/mydetails.html', { 'recipe': recipe })
+    instruction_form = InstructionForm()
+    return render(request, 'recipes/mydetails.html', {
+        'recipe': recipe,
+        'instruction_form': instruction_form
+    })
+
+def add_instruction(request, recipe_id):
+    form = InstructionForm(request.POST)
+    if form.is_valid():
+        new_instuction = form.save(commit=False)
+        new_instuction.recipe_id = recipe_id
+        new_instuction.save()
+    return redirect('mydetails', recipe_id=recipe_id)
 
 class RecipeCreate(CreateView):
     model = Recipe
