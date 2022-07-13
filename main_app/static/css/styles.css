@@ -14,6 +14,10 @@ main {
     flex: 1 0 auto;
 }
 
+h1 {
+    color: #817d7d;
+}
+
 hr {
     height: 1.5px;
     background-color: rgb(189, 165, 165);
@@ -28,4 +32,14 @@ footer {
     padding-top: 0;
     text-align: right;
     background-color: rgb(173, 22, 22) !important;
+}
+
+label[for="id_mealtype"] {
+    visibility: hidden;
+}
+
+label[for="id_mealtype"]::after {
+    content: "Meal Type:";
+    visibility: visible;
+    margin-left: -53px;
 }

@@ -3,7 +3,7 @@ from dataclasses import field
 from email.mime import image
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Recipe, Instruction, Photo
 
 # Create your views here.
@@ -32,16 +32,26 @@ def my_recipe_details(request, recipe_id):
 class RecipeCreate(CreateView):
     model = Recipe
     fields = ['label', 'mealtype', 'ingredients']
-    
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
 class YourRecipeCreate(CreateView):
     model = Recipe
-    fields = '__all__'
+    fields = ['label', 'mealtype', 'ingredients']
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
+class RecipeUpdate(UpdateView):
+    model = Recipe
+    fields = ['label', 'mealtype', 'ingredients']
+
+class RecipeDelete(DeleteView):
+    model = Recipe
+    success_url = '/cookmarked/'
 
 
 

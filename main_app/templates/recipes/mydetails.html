@@ -12,5 +12,9 @@
         <p>Meal Type: {{ recipe.mealtype }}</p>
         <p>Ingredients: {{ recipe.ingredients }}</p>
     </div>
+    <div class="card-action">
+        <a href="{% url 'recipe_update' recipe.id %}">Edit</a>
+        <a href="{% url 'recipe_delete' recipe.id %}">Delete</a>
+    </div>
 </div>
 {% endblock %}
