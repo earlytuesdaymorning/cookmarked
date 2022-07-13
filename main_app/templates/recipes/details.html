@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>{{ recipe.label }} Details</h1>
+<hr />
+
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ recipe.label }}</span>
+        <div class="right">
+            <img src="{{ recipe.image }}">
+        </div>
+        <p>Meal Type: {{ recipe.mealtype }}</p>
+        <p>Ingredients: {{ recipe.ingredients }}</p>
+    </div>
+</div>
+{% endblock %}

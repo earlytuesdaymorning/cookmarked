@@ -19,6 +19,23 @@ def cookmarked_recipes(request):
     myrecipes = Recipe.objects.filter(user=request.user)
     return render(request, 'recipes/index.html', { 'myrecipes': myrecipes })
 
+def recipe_details(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
+    return render(request, 'recipes/details.html', { 'recipe': recipe })
+
+def my_recipe_details(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
+    return render(request, 'recipes/mydetails.html', { 'recipe': recipe })
+
+
+
+
+
+
+
+
+
+
 # class Recipe:
 #     def __init__(self, label, image, mealtype, ingredients, instructions):
 #         self.label = label

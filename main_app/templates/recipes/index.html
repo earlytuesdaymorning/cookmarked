@@ -5,14 +5,16 @@
 
 {% for myrecipe in myrecipes %}
 <div class="card">
-    <div class="card-content">
-        <span class="card-title">{{ myrecipe.label }}</span>
-        <div class="right">
-            <img src="{{ myrecipe.image }}">
+    <a href="{% url 'mydetails' myrecipe.id %}">
+        <div class="card-content">
+            <span class="card-title">{{ myrecipe.label }}</span>
+            <div class="right">
+                <img src="{{ myrecipe.image }}">
+            </div>
+            <p>Meal Type: {{ myrecipe.mealtype }}</p>
+            <p>Ingredients: {{ myrecipe.ingredients }}</p>
+            <p>Intructions: {{ myrecipe.instructions }}</p>
         </div>
-        <p>Meal Type: {{ myrecipe.mealtype }}</p>
-        <p>Ingredients: {{ myrecipe.ingredients }}</p>
-        <p>Intructions: {{ myrecipe.instructions }}</p>
-    </div>
+    </a>
 </div>
 {% endfor %} {% endblock %}
