@@ -5,11 +5,25 @@
 
 <div class="card">
     <div class="card-content">
+        <p class="right"><b>Meal Type: </b>{{ recipe.mealtype }}</p>
         <div class="right">
             <img src="{{ recipe.image }}">
         </div>
         <p><span class="card-title"><b>Ingredients: </b></span>{{ recipe.ingredients }}</p>
-        <p><b>Meal Type: </b>{{ recipe.mealtype }}</p>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Instructions:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for instruction in recipe.instruction_set.all %}
+                <tr>
+                    <td>{{ instruction.text }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

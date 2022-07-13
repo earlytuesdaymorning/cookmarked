@@ -1,16 +1,29 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>{{ recipe.label }} Details</h1>
+<h1>{{ recipe.label }}</h1>
 <hr />
 
 <div class="card">
     <div class="card-content">
-        <span class="card-title">{{ recipe.label }}</span>
+        <p class="right"><b>Meal Type: </b>{{ recipe.mealtype }}</p>
         <div class="right">
             <img src="{{ recipe.image }}">
         </div>
-        <p>Meal Type: {{ recipe.mealtype }}</p>
-        <p>Ingredients: {{ recipe.ingredients }}</p>
+        <p><span class="card-title"><b>Ingredients: </b></span>{{ recipe.ingredients }}</p>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Instructions:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for instruction in recipe.instruction_set.all %}
+                <tr>
+                    <td>{{ instruction.text }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     <div class="card-action">
         <a href="{% url 'recipe_update' recipe.id %}">Edit</a>

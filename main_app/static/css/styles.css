@@ -34,12 +34,12 @@ footer {
     background-color: rgb(173, 22, 22) !important;
 }
 
-label[for="id_mealtype"] {
+/* label[for="id_mealtype"] {
     visibility: hidden;
 }
 
 label[for="id_mealtype"]::after {
     content: "Meal Type:";
-    visibility: visible;
+    visibility: hidden;
     margin-left: -53px;
-}
+} */
