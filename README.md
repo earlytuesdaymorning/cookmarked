@@ -8,10 +8,12 @@ I have always had trouble keeping track of recipes I have used and enjoyed, espe
 
 * Python 3.9.13
 * Django 4.0.6
-* HTML, JS, CSS
+* HTML, CSS
 * AWS S3
 * Heroku
 * Materialize 1.0.0
+* SQLite3 (for development)
+* PostGreSQL (for deployment)
 
 ## Screenshots
 <img src="https://images2.imgbox.com/e7/fb/RF6O2UmN_o.png" alt="grab" width="450"/>
