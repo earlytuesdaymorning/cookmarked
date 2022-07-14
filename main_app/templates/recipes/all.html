@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>All Recipes</h1>
+<h1 class="pageheader">All Recipes</h1>
 <hr />
 
 
@@ -9,8 +9,10 @@
     <div class="col s6">
         <a class="indexcard" href="{% url 'details' recipe.id %}">
             <div class="hoverable card">
+                <img src="https://images2.imgbox.com/59/40/ExuRFMT4_o.png" class="pin">
                 <div class="card-content">
                     <span class="card-title">{{ recipe.label }}</span>
+                    <p>{{ recipe.mealtype }}</p>
                     <div class="">
                         {% for photo in recipe.photo_set.all %}
                         <img class="responsive-img card-panel" src="{{ photo.url }}">
@@ -18,7 +20,6 @@
                         <div class="card-panel red-text text-darken-4 center-align">No Photos Uploaded</div>
                         {% endfor %}
                     </div>
-                    <p>{{ recipe.mealtype }}</p>
                 </div>
             </div>
         </a>
