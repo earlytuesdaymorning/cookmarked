@@ -76,6 +76,16 @@ footer {
     background-color: rgb(173, 22, 22) !important;
 }
 
+@media only screen and (max-width: 580px) {
+    .mobile {
+        display: none;
+    }
+
+    nav > ul {
+        margin-left: -10px;
+    }
+}
+
 /* label[for="id_mealtype"] {
     visibility: hidden;
 }
