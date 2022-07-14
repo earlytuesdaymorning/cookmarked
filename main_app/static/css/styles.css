@@ -8,6 +8,11 @@ body {
     display: flex;
     flex-direction: column;
     background-color: bisque;
+    color: #4b4545;
+}
+
+nav {
+    background-color: rgb(173, 22, 22);
 }
 
 main {
@@ -16,6 +21,7 @@ main {
 
 h1 {
     color: #817d7d;
+    text-align: right;
 }
 
 hr {
@@ -24,14 +30,60 @@ hr {
     border: none;
 }
 
-nav {
+.indexcard {
+    color: #817d7d;
+}
+
+.pin {
+    height: 35px;
+    margin: -10px 45% 0 45%;
+}
+
+.tape {
+    height: 80px;
+    margin: 0 35% -50px 35%;
+}
+
+input[type=file]::file-selector-button {
+    border: 2px solid rgb(173, 22, 22);
+    padding: 4px;
+    border-radius: 2px;
     background-color: rgb(173, 22, 22);
+    transition: 1s;
+    color: white;
+}
+
+input[type=file]::file-selector-button:hover {
+    background-color: #817d7d;
+    border: 2px solid #817d7d;
+}
+
+.add {
+    margin-top: 10px !important;
+}
+
+.click {
+    transition: 1s !important;
+}
+
+.click:hover {
+    background-color: #817d7d !important;
 }
 
 footer {
     padding-top: 0;
     text-align: right;
     background-color: rgb(173, 22, 22) !important;
+}
+
+@media only screen and (max-width: 580px) {
+    .mobile {
+        display: none;
+    }
+
+    nav > ul {
+        margin-left: -10px;
+    }
 }
 
 /* label[for="id_mealtype"] {

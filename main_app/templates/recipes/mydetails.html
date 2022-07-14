@@ -48,7 +48,7 @@
             <div class="card-content">
                 <form action="{% url 'add_instruction' recipe.id %}" method="post">
                     {% csrf_token %} {{ instruction_form.as_p }}
-                    <input type="submit" class="btn" value="Add Instruction" />
+                    <input type="submit" class="click btn red darken-4" value="Add Instruction" />
                 </form>
             </div>
         </div>
@@ -58,7 +58,7 @@
             {% csrf_token %}
             <input type="file" name="photo-file" />
             <br /><br />
-            <input type="submit" class="btn" value="Upload Photo" />
+            <input type="submit" class="click btn red darken-4" value="Upload Photo" />
         </form>
     </div>
 </div>
