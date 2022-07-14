@@ -1,18 +1,28 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>My Recipes</h1>
+<h1>My Recipes <a class="btn-small right" href="{% url 'recipe_create' %}">Add Recipe</a></h1>
 <hr />
 
-{% for myrecipe in myrecipes %}
-<div class="card">
-    <a href="{% url 'mydetails' myrecipe.id %}">
-        <div class="card-content">
-            <span class="card-title">{{ myrecipe.label }}</span>
-            <div class="right">
-                <img src="{{ myrecipe.image }}">
+<div class="row">
+    {% for myrecipe in myrecipes %}
+    <div class="col s6">
+        <a class="indexcard" href="{% url 'mydetails' myrecipe.id %}">
+            <div class="hoverable card">
+                <div class="card-content">
+                    <span class="card-title">{{ myrecipe.label }}</span>
+                    <div class="">
+                        {% for photo in myrecipe.photo_set.all %}
+                        <img class="responsive-img card-panel" src="{{ photo.url }}">
+                        {% empty %}
+                        <div class="card-panel red-text text-darken-4 center-align">No Photos Uploaded</div>
+                        {% endfor %}
+                    </div>
+                    <p>{{ myrecipe.mealtype }}</p>
+                </div>
             </div>
-            <p>{{ myrecipe.mealtype }}</p>
-        </div>
-    </a>
+        </a>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %} {% endblock %}
+
+{% endblock %}

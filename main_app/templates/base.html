@@ -34,12 +34,11 @@
                 <li><a href="{% url 'about' %}">About</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'all' %}">View All Recipes</a></li>
-                <li><a href="{% url 'index' %}">My COOKmarked Recipes</a></li>
-                <li><a href="{% url 'recipe_create' %}">Add a Recipe</a></li>
+                <li><a href="{% url 'index' %}">My Recipes</a></li>
                 <li><a href="{% url 'logout' %}">Log Out</a></li>
                 {% else %}
-                <li><a href="{% url 'signup' %}">Sign Up</a></li>
                 <li><a href="{% url 'login' %}">Log In</a></li>
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
                 {% endif %}
             </ul>
         </nav>
