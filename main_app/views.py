@@ -5,10 +5,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import is_valid_path
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-import uuid
-import boto3
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Recipe, Instruction, Photo
 from .forms import InstructionForm
+import uuid
+import boto3
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'cookmarked'
@@ -20,14 +24,17 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def all_recipes(request):
     recipes = Recipe.objects.all()
     return render(request, 'recipes/all.html', { 'recipes': recipes })
 
+@login_required
 def cookmarked_recipes(request):
     myrecipes = Recipe.objects.filter(user=request.user)
     return render(request, 'recipes/index.html', { 'myrecipes': myrecipes })
 
+@login_required
 def recipe_details(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
     instruction_form = InstructionForm()
@@ -36,6 +43,7 @@ def recipe_details(request, recipe_id):
         'instruction_form': instruction_form
     })
 
+@login_required
 def my_recipe_details(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
     instruction_form = InstructionForm()
@@ -44,6 +52,7 @@ def my_recipe_details(request, recipe_id):
         'instruction_form': instruction_form
     })
 
+@login_required
 def add_instruction(request, recipe_id):
     form = InstructionForm(request.POST)
     if form.is_valid():
@@ -52,6 +61,7 @@ def add_instruction(request, recipe_id):
         new_instuction.save()
     return redirect('mydetails', recipe_id=recipe_id)
 
+@login_required
 def add_photo(request, recipe_id):
     photo_file = request.FILES.get('photo-file', None)
 
@@ -68,7 +78,21 @@ def add_photo(request, recipe_id):
             print('An error occurred uploading file to S3: ', error)
     return redirect('mydetails', recipe_id=recipe_id)
 
-class RecipeCreate(CreateView):
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')
+        else:
+            error_message = 'Invalid sign up - try again'
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
+
+class RecipeCreate(LoginRequiredMixin, CreateView):
     model = Recipe
     fields = ['label', 'mealtype', 'ingredients']
 
@@ -76,7 +100,7 @@ class RecipeCreate(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class YourRecipeCreate(CreateView):
+class YourRecipeCreate(LoginRequiredMixin, CreateView):
     model = Recipe
     fields = ['label', 'mealtype', 'ingredients']
 
@@ -84,11 +108,11 @@ class YourRecipeCreate(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class RecipeUpdate(UpdateView):
+class RecipeUpdate(LoginRequiredMixin, UpdateView):
     model = Recipe
     fields = ['label', 'mealtype', 'ingredients']
 
-class RecipeDelete(DeleteView):
+class RecipeDelete(LoginRequiredMixin, DeleteView):
     model = Recipe
     success_url = '/cookmarked/'
 

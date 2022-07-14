@@ -14,4 +14,5 @@ urlpatterns = [
     path('cookmarked/<int:pk>/delete/', views.RecipeDelete.as_view(), name='recipe_delete'),
     path('cookmarked/<int:recipe_id>/add_instruction/', views.add_instruction, name='add_instruction'),
     path('cookmarked/<int:recipe_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]
